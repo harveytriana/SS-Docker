@@ -3,12 +3,12 @@ ConsoleApp works fine in Container. Use SkiaSharp.
 
 
 BLAZOR
-
+--------------------------------------------------
 First Approach: docker init
-I added line:
+Edit dockerfile for add line:
 RUN dotnet workload install wasm-tools
 
-Fail.
+Running docker compose up --build 
 ...
  => [server build 4/5] WORKDIR /source                                                                                                                                 0.2s
  => ERROR [server build 5/5] RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages     dotnet publish -a ${TARGETARCH/amd64/x64} --use-current-runtime --self-  8.9s
@@ -23,8 +23,14 @@ failed to solve: process "/bin/sh -c dotnet publish -a ${TARGETARCH/amd64/x64} -
 
 Second approach: nginx.conf
 -------------------------------------
-Works fine for other Blazor WebAssemble, but when use SkiSharp, the bulding imgar y broken.
+Works fine for other Blazor WebAssembley projects, but when use SkiSharp, the bulding image is broken.
 
+Running > docker build -t blazor-wa-ss .
+
+[+] Building 26.8s (13/17)                                                                                                                                           docker:default
+ => [internal] load build definition from Dockerfile                                                                                                                           0.0s
+ => => transferring dockerfile: 781B
+...
 Dockerfile:10
 --------------------
    8 |     RUN dotnet workload restore
@@ -35,7 +41,24 @@ Dockerfile:10
 --------------------
 ERROR: failed to solve: process "/bin/sh -c dotnet build BlazorWAApp.csproj -c Release -o /app/build" did not complete successfully: exit code: 1
 
+LOG NOTES
+Fail here:
+RUN dotnet build BlazorWAApp.csproj -c Release -o /app/build
 
+MSBuild version 17.9.4+90725d08d for .NET
+Determining projects to restore...
+Restored /src/BlazorWAApp.csproj (in 11.69 sec).
+Compiling native assets with emcc with -Oz. This may take a while ...
+/usr/share/dotnet/packs/Microsoft.NET.Runtime.WebAssembly.Sdk/8.0.2/Sdk/WasmApp.Native.targets(366,5): error : Failed to compile /usr/share/dotnet/packs/Microsoft.NETCore.App.Runtime.Mono.browser-wasm/8.0.2/runtimes/browser-wasm/native/src/pinvoke.c -> /src/obj/Release/net8.0/wasm/for-build/pinvoke.o [/src/BlazorWAApp.csproj]
+/usr/share/dotnet/packs/Microsoft.NET.Runtime.WebAssembly.Sdk/8.0.2/Sdk/WasmApp.Native.targets(366,5): error : unable to find python in $PATH [took 0.01s] [/src/BlazorWAApp.csproj]
+/usr/share/dotnet/packs/Microsoft.NET.Runtime.WebAssembly.Sdk/8.0.2/Sdk/WasmApp.Native.targets(366,5): error : Failed to compile /usr/share/dotnet/packs/Microsoft.NETCore.App.Runtime.Mono.browser-wasm/8.0.2/runtimes/browser-wasm/native/src/corebindings.c -> /src/obj/Release/net8.0/wasm/for-build/corebindings.o [/src/BlazorWAApp.csproj]
+/usr/share/dotnet/packs/Microsoft.NET.Runtime.WebAssembly.Sdk/8.0.2/Sdk/WasmApp.Native.targets(366,5): error : unable to find python in $PATH [took 0.01s] [/src/BlazorWAApp.csproj]
+/usr/share/dotnet/packs/Microsoft.NET.Runtime.WebAssembly.Sdk/8.0.2/Sdk/WasmApp.Native.targets(366,5): error : Failed to compile /usr/share/dotnet/packs/Microsoft.NETCore.App.Runtime.Mono.browser-wasm/8.0.2/runtimes/browser-wasm/native/src/driver.c -> /src/obj/Release/net8.0/wasm/for-build/driver.o [/src/BlazorWAApp.csproj]
+/usr/share/dotnet/packs/Microsoft.NET.Runtime.WebAssembly.Sdk/8.0.2/Sdk/WasmApp.Native.targets(366,5): error : unable to find python in $PATH [took 0.02s] [/src/BlazorWAApp.csproj]
+
+Build FAILED.
+...
+3 Error(s)
 
 
 
