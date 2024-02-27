@@ -1,6 +1,3 @@
-# Basic guide: Containerising a Blazor WebAssembly App, Chris Sainty
-# https://chrissainty.com/containerising-blazor-applications-with-docker-containerising-a-blazor-webassembly-app/
-
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # For native dependences
@@ -23,7 +20,6 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # ------------------------------------------------------
 # create image
 # docker build -t blazor-wa-ss .
-# note. Use 8080 in nginx.conf, not 80 due to is net8
 
 # starting a container
-# docker run -p 8080:80 --name blazor-wa-ss blazor-wa-ss
+# docker run -d -p 5200:8080 --name blazor-wa-ss blazor-wa-ss
