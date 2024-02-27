@@ -1,10 +1,10 @@
-BLAZOR
---------------------------------------------------
-Works fine for other Blazor WebAssembley projects, but when use SkiSharp, the bulding image is broken.
+Issues with Containerize a Blazor WebAssembly app that uses SkiaSharp
+------------------------------------------------------------------------------------------------------
+Note that works fine for other Blazor WebAssembley projects, but when use SkiSharp, the bulding image is broken.
 
 Running > docker build -t blazor-wa-ss .
 
-[+] Building 26.8s (13/17)                                                                                                                                           docker:default
+[+] Building 26.8s (13/17)                                                                                  ...
  => [internal] load build definition from Dockerfile                                                                                                                           0.0s
  => => transferring dockerfile: 781B
 ...
@@ -38,10 +38,8 @@ Build FAILED.
 3 Error(s)
 
 --------------------------
-P.S. Is the same with net7
-
 NOTES
 
 The approach: docker init as command leads to the same problem, and does not apply to create Blazor images.
 
-ConsoleApp works fine in Container. Use SkiaSharp.
+ConsoleApp in this repository works fine in Container. Use SkiaSharp.
