@@ -1,28 +1,5 @@
-
-ConsoleApp works fine in Container. Use SkiaSharp.
-
-
 BLAZOR
 --------------------------------------------------
-First Approach: docker init
-Edit dockerfile for add line:
-RUN dotnet workload install wasm-tools
-
-Running docker compose up --build 
-...
- => [server build 4/5] WORKDIR /source                                                                                                                                 0.2s
- => ERROR [server build 5/5] RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages     dotnet publish -a ${TARGETARCH/amd64/x64} --use-current-runtime --self-  8.9s
-...
-1.381 MSBuild version 17.9.4+90725d08d for .NET
-2.137   Determining projects to restore...
-3.364   Restored /source/BlazorWAApp.csproj (in 673 ms).
-8.758 /root/.nuget/packages/microsoft.net.sdk.webassembly.pack/8.0.2/build/Microsoft.NET.Sdk.WebAssembly.Browser.targets(231,5): error WASM0005: Unable to resolve WebAssembly runtime pack version [/source/BlazorWAApp.csproj]
-------
-failed to solve: process "/bin/sh -c dotnet publish -a ${TARGETARCH/amd64/x64} --use-current-runtime --self-contained false -o /app" did not complete successfully: exit code: 1
-
-
-Second approach: nginx.conf
--------------------------------------
 Works fine for other Blazor WebAssembley projects, but when use SkiSharp, the bulding image is broken.
 
 Running > docker build -t blazor-wa-ss .
@@ -62,3 +39,9 @@ Build FAILED.
 
 --------------------------
 P.S. Is the same with net7
+
+NOTES
+
+The approach: docker init as command leads to the same problem, and does not apply to create Blazor images.
+
+ConsoleApp works fine in Container. Use SkiaSharp.
