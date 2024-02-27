@@ -60,5 +60,5 @@ Build FAILED.
 ...
 3 Error(s)
 
-
-
+--------------------------
+P.S. Is the same with net7
