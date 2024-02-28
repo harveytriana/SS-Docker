@@ -1,3 +1,5 @@
+FIRST APPROACH
+--------------
 Issues with Containerize a Blazor WebAssembly app that uses SkiaSharp
 ------------------------------------------------------------------------------------------------------
 Note that works fine for other Blazor WebAssembley projects, but when use SkiSharp, the bulding image is broken.
@@ -38,8 +40,14 @@ Build FAILED.
 3 Error(s)
 
 --------------------------
-NOTES
 
-The approach: docker init as command leads to the same problem, and does not apply to create Blazor images.
 
-ConsoleApp in this repository works fine in Container. Use SkiaSharp.
+FIXED:
+Replaced:
+# For native dependences
+RUN dotnet workload install wasm-tools
+With:
+# For native dependences
+RUN apt-get update -y && apt-get install python3 libatomic1 -y && dotnet workload install wasm-tools
+
+The BUG concerns an unfiltered Python dependency for C# in wasm-tool.

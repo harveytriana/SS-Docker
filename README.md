@@ -5,4 +5,6 @@ This is a simple Blazor WebAssembly application using SkiaSharp which is intende
 
 Try containerize that. The generation of the Docker image is not completed successfully.
 
-The file Notes.txt shows the essence of the logs that report the error. In the same repository is included a console application that uses SkiaSharp, in net8, which demonstrates that SkiaSharp does run in a container.
+The BUG concerns an unfiltered Python dependency for C# in wasm-tool.
+
+Fixed by installing python3 libatomic1 in the Docker image.

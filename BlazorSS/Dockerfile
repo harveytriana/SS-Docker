@@ -1,16 +1,16 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # For native dependences
-RUN dotnet workload install wasm-tools
+RUN apt-get update -y && apt-get install python3 libatomic1 -y && dotnet workload install wasm-tools
 
 WORKDIR /src
 COPY *.csproj .
 RUN dotnet workload restore
 COPY . .
-RUN dotnet build BlazorWAApp.csproj -c Release -o /app/build
+RUN dotnet build BlazorSS.csproj -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish BlazorWAApp.csproj -c Release -o /app/publish
+RUN dotnet publish BlazorSS.csproj -c Release -o /app/publish
 
 FROM nginx:alpine AS final
 WORKDIR /usr/share/nginx/html
