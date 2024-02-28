@@ -8,9 +8,8 @@ Try containerize that. The generation of the Docker image is not completed succe
 The file Notes.txt shows the essence of the logs that report the error. In the same repository is included a console application that uses SkiaSharp, in net8, which demonstrates that SkiaSharp does run in a container.
 
 ### The Docker log 
-```
 Running > docker build -t blazor-wa-ss .
-
+```
 [+] Building 26.8s (13/17)                                                                                  ...
  => [internal] load build definition from Dockerfile                                                                                                                           0.0s
  => => transferring dockerfile: 781B
