@@ -8,3 +8,8 @@ Try containerize that. The generation of the Docker image is not completed succe
 The BUG concerns an unfiltered Python dependency for C# in wasm-tool.
 
 Fixed by installing python3 libatomic1 in the Docker image.
+
+### For native dependences
+```
+RUN apt-get update -y && apt-get install python3 libatomic1 -y && dotnet workload install wasm-tools
+```
