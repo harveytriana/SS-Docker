@@ -23,11 +23,7 @@ Dockerfile:10
   12 |     FROM build AS publish
 --------------------
 ERROR: failed to solve: process "/bin/sh -c dotnet build BlazorWAApp.csproj -c Release -o /app/build" did not complete successfully: exit code: 1
-
-LOG NOTES
-Fail here:
-RUN dotnet build BlazorWAApp.csproj -c Release -o /app/build
-
+...
 MSBuild version 17.9.4+90725d08d for .NET
 Determining projects to restore...
 Restored /src/BlazorWAApp.csproj (in 11.69 sec).
